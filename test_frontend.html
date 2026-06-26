@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥗 Nutrition API - Frontend Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h2 { 
+            color: #1e293b; 
+            margin-bottom: 20px; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label { 
+            font-weight: 600; 
+            display: block; 
+            margin-top: 14px; 
+            color: #334155; 
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 10px 14px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #22c55e;
+            font-size: 14px;
+            display: none;
+            word-break: break-word;
+        }
+        .food-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 12px;
+        }
+        .food-item {
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 10px;
+            width: 120px;
+            background: white;
+            transition: transform 0.1s;
+        }
+        .food-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #f1f5f9;
+        }
+        .food-item span {
+            display: block;
+            margin-top: 6px;
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 14px;
+        }
+        .error {
+            background: #fef2f2 !important;
+            border-left-color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🥗 পুষ্টি ডেটা পাঠান</h2>
+    
+    <label>আপনার নাম</label>
+    <input type="text" id="name" placeholder="রাফসান" value="রাফসান">
+
+    <label>বয়স (বছর)</label>
+    <input type="number" id="age" placeholder="২২" value="22">
+
+    <label>ওজন (কেজি)</label>
+    <input type="number" step="0.1" id="weight" placeholder="৬৫.৫" value="65.5">
+
+    <label>উচ্চতা (সেমি)</label>
+    <input type="number" step="0.1" id="height" placeholder="১৭০" value="170">
+
+    <label>আজ কী কী খেলেন? (কমা দিয়ে আলাদা করুন)</label>
+    <input type="text" id="foods" placeholder="ভাত, ইলিশ, ডাল" value="ভাত, ইলিশ, ডাল">
+
+    <button onclick="sendData()">🚀 FastAPI-তে ডেটা পাঠান</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+async function sendData() {
+    // ১. ইনপুটের মান নিন
+    const name = document.getElementById('name').value.trim() || 'বন্ধু';
+    const age = parseInt(document.getElementById('age').value);
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value);
+    const foodsRaw = document.getElementById('foods').value;
+
+    // ২. খাবারের স্ট্রিংকে লিস্টে রূপান্তর করুন
+    const foodsArray = foodsRaw.split(',').map(item => item.trim()).filter(item => item.length > 0);
+
+    // ৩. পেলোড তৈরি করুন
+    const payload = { name, age, weight, height, foods: foodsArray };
+
+    // ৪. রেজাল্ট ডিভ দেখানোর জন্য প্রস্তুত করুন
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.textContent = '⏳ ডেটা পাঠানো হচ্ছে, দয়া করে অপেক্ষা করুন...';
+    resultDiv.className = ''; 
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // ---------- সাফল্য: ছবি সহ দেখানো ----------
+            let htmlContent = `<strong>✅ সফল!</strong><br>`;
+            htmlContent += `<strong>মেসেজ:</strong> ${data.message}<br>`;
+            htmlContent += `<strong>BMI:</strong> ${data.your_bmi}<br><br>`;
+            htmlContent += `<strong>আপনার খাবারগুলো:</strong>`;
+            
+            // ছবি দেখানোর গ্রিড
+            htmlContent += `<div class="food-grid">`;
+            data.foods_with_images.forEach(food => {
+                // image_url যদি থাকে, তাহলে সেটা বসান, না হলে প্লেসহোল্ডার
+                const imgSrc = food.image_url || 'https://via.placeholder.com/100x100?text=No+Image';
+                htmlContent += `
+                    <div class="food-item">
+                        <img src="${imgSrc}" alt="${food.name}" 
+                             onerror="this.src='https://via.placeholder.com/100x100?text=Image+Not+Found'">
+                        <span>${food.name}</span>
+                    </div>
+                `;
+            });
+            htmlContent += `</div>`;
+
+            resultDiv.innerHTML = htmlContent;
+            resultDiv.className = '';
+            // ---------- সাফল্য শেষ ----------
+        } else {
+            // Error রেসপন্স
+            resultDiv.innerHTML = `<strong>❌ সার্ভার এরর:</strong> ${JSON.stringify(data, null, 2)}`;
+            resultDiv.className = 'error';
+        }
+    } catch (error) {
+        // নেটওয়ার্ক বা কানেকশন সমস্যা
+        resultDiv.innerHTML = `❌ কানেকশন ফেল! সার্ভার কি চালু আছে? (Error: ${error.message})`;
+        resultDiv.className = 'error';
+    }
+}
+</script>
+
+</body>
+</html>

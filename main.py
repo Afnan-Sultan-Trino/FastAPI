@@ -18,6 +18,10 @@ FOOD_IMAGE_MAP = {
     "ডিম": "/static/Local_Foods/Screenshot 2026-06-26 203642.png",
     "ডাল": "/static/Local_Foods/Screenshot 2026-06-26 204037.png",
     "আমলকি": "/static/Local_Foods/Screenshot 2026-06-26 204202.png",
+    "মুরগি":"/static/Local_Foods/Screenshot 2026-06-28 211255.png",
+    "গরু":"/static/Local_Foods/Screenshot 2026-06-28 210342.png",
+    "দুধ চা":"/static/Local_Foods/Screenshot 2026-06-28 212225.png"
+
 }
 
 #ভাত, ইলিশ, ডাল,আমলকি, ডিম, লাল শাক

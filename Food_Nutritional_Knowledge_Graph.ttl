@@ -1,0 +1,547 @@
+@prefix : <http://www.semanticweb.org/as/ontologies/2026/6/Food_Nutrition_Graph/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/as/ontologies/2026/6/Food_Nutrition_Graph/> .
+
+<http://www.semanticweb.org/as/ontologies/2026/6/Food_Nutrition_Graph> rdf:type owl:Ontology ;
+    rdfs:comment "Bangladeshi Food Ontology for Nutritional Deficiency Detection and Personalized Local Food Recommendation. NOTE: Food nutrient values below are close-range estimates compiled from standard food-composition references (USDA FoodData Central / commonly cited South Asian food composition sources) because exact INFS (Institute of Nutrition and Food Science, Dhaka University) table values were not available at generation time. RDA values are based on WHO/NIH adult reference intakes, with ICMR-style South Asian bioavailability notes flagged separately for Iron and Zinc. ALL numeric values in this file should be cross-checked against the actual INFS food composition table and a recognized RDA table (WHO/ICMR/BSTI) before being used in publication or clinical claims."@en .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  causesSymptom
+:causesSymptom rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Nutrient ;
+               rdfs:range :Symptom ;
+               rdfs:comment "Links a nutrient to a symptom that its deficiency can cause."@en .
+
+
+###  enhancesAbsorption
+:enhancesAbsorption rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdfs:domain :Food ;
+                    rdfs:range :Nutrient ;
+                    rdfs:comment "Links a food to a nutrient whose absorption it enhances when eaten together (e.g. Vitamin C rich foods enhancing iron absorption)."@en .
+
+
+###  hasNutrient
+:hasNutrient rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Food ;
+             rdfs:range :Nutrient ;
+             rdfs:comment "Links a food to a nutrient it meaningfully contains."@en .
+
+
+###  treatedBy
+:treatedBy rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain :Nutrient ;
+           rdfs:range :Food ;
+           rdfs:comment "Links a nutrient (deficiency) to a food that is a good source to treat it."@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  hasCalcium_mg_per_100g
+:hasCalcium_mg_per_100g rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf owl:topDataProperty ;
+                        rdfs:domain :Food ;
+                        rdfs:range xsd:float .
+
+
+###  hasCarbohydrate_g_per_100g
+:hasCarbohydrate_g_per_100g rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty ;
+                            rdfs:domain :Food ;
+                            rdfs:range xsd:float .
+
+
+###  hasFatContent_g_per_100g
+:hasFatContent_g_per_100g rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain :Food ;
+                          rdfs:range xsd:float .
+
+
+###  hasIronContent_mg_per_100g
+:hasIronContent_mg_per_100g rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty ;
+                            rdfs:domain :Food ;
+                            rdfs:range xsd:float .
+
+
+###  hasProteinContent_g_per_100g
+:hasProteinContent_g_per_100g rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf owl:topDataProperty ;
+                              rdfs:domain :Food ;
+                              rdfs:range xsd:float .
+
+
+###  hasRDA_female_daily
+:hasRDA_female_daily rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain :Nutrient ;
+                     rdfs:range xsd:float .
+
+
+###  hasRDA_male_daily
+:hasRDA_male_daily rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :Nutrient ;
+                   rdfs:range xsd:float .
+
+
+###  hasServingSize_g
+:hasServingSize_g rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :Food ;
+                  rdfs:range xsd:float .
+
+
+###  hasVitaminA_mcg_per_100g
+:hasVitaminA_mcg_per_100g rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain :Food ;
+                          rdfs:range xsd:float .
+
+
+###  hasVitaminC_mg_per_100g
+:hasVitaminC_mg_per_100g rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty ;
+                         rdfs:domain :Food ;
+                         rdfs:range xsd:float .
+
+
+###  hasVitaminD_mcg_per_100g
+:hasVitaminD_mcg_per_100g rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain :Food ;
+                          rdfs:range xsd:float .
+
+
+###  hasZincContent_mg_per_100g
+:hasZincContent_mg_per_100g rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty ;
+                            rdfs:domain :Food ;
+                            rdfs:range xsd:float .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  Food
+:Food rdf:type owl:Class .
+
+###  Grain  (also covers roots/tubers/starchy staples for simplicity)
+:Grain rdf:type owl:Class ;
+       rdfs:subClassOf :Food .
+
+###  Legume  (also covers nuts/seeds for simplicity)
+:Legume rdf:type owl:Class ;
+        rdfs:subClassOf :Food .
+
+###  Vegetable
+:Vegetable rdf:type owl:Class ;
+           rdfs:subClassOf :Food .
+
+###  GreenLeafy
+:GreenLeafy rdf:type owl:Class ;
+            rdfs:subClassOf :Vegetable .
+
+###  OtherVegetable
+:OtherVegetable rdf:type owl:Class ;
+                rdfs:subClassOf :Vegetable .
+
+###  Fruit
+:Fruit rdf:type owl:Class ;
+       rdfs:subClassOf :Food .
+
+###  CitrusFruit
+:CitrusFruit rdf:type owl:Class ;
+             rdfs:subClassOf :Fruit .
+
+###  OtherFruit
+:OtherFruit rdf:type owl:Class ;
+            rdfs:subClassOf :Fruit .
+
+###  Meat
+:Meat rdf:type owl:Class ;
+      rdfs:subClassOf :Food .
+
+###  Fish
+:Fish rdf:type owl:Class ;
+      rdfs:subClassOf :Food .
+
+###  Egg
+:Egg rdf:type owl:Class ;
+     rdfs:subClassOf :Food .
+
+###  Dairy
+:Dairy rdf:type owl:Class ;
+       rdfs:subClassOf :Food .
+
+###  Oil
+:Oil rdf:type owl:Class ;
+     rdfs:subClassOf :Food .
+
+###  JunkFood
+:JunkFood rdf:type owl:Class ;
+          rdfs:subClassOf :Food ;
+          rdfs:comment "Lifestyle-tracking category, excluded from WHO DDS scoring."@en .
+
+###  Beverage  (tea/coffee)
+:Beverage rdf:type owl:Class ;
+          rdfs:subClassOf :Food ;
+          rdfs:comment "Lifestyle-tracking category, excluded from WHO DDS scoring."@en .
+
+###  Nutrient
+:Nutrient rdf:type owl:Class .
+
+###  Macronutrient
+:Macronutrient rdf:type owl:Class ;
+               rdfs:subClassOf :Nutrient .
+
+###  Micronutrient
+:Micronutrient rdf:type owl:Class ;
+               rdfs:subClassOf :Nutrient .
+
+###  Symptom
+:Symptom rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals — Nutrients (Macronutrient / Micronutrient)
+#################################################################
+
+###  Protein
+:Protein rdf:type owl:NamedIndividual , :Macronutrient ;
+         :hasRDA_male_daily "56.0"^^xsd:float ;
+         :hasRDA_female_daily "46.0"^^xsd:float ;
+         :treatedBy :MurgirMangsho , :GorurMangsho , :Dim , :MasoorDal .
+
+###  Carbohydrate
+:Carbohydrate rdf:type owl:NamedIndividual , :Macronutrient ;
+              :hasRDA_male_daily "130.0"^^xsd:float ;
+              :hasRDA_female_daily "130.0"^^xsd:float .
+
+###  Fat
+:Fat rdf:type owl:NamedIndividual , :Macronutrient ;
+     rdfs:comment "No single-value RDA asserted; total fat intake is usually expressed as a % of calories (AMDR), not a fixed gram target."@en .
+
+###  Iron
+:Iron rdf:type owl:NamedIndividual , :Micronutrient ;
+      :hasRDA_male_daily "19.0"^^xsd:float ;
+      :hasRDA_female_daily "29.0"^^xsd:float ;
+      :causesSymptom :Fatigue , :HairLoss , :PoorConcentration ;
+      :treatedBy :LalShak , :Ilish , :Dim , :MasoorDal ;
+      rdfs:comment "RDA uses ICMR-style South Asian value (higher, adjusts for lower bioavailability of iron from phytate-rich, plant-dominant diets). WHO/US value is lower (M 8mg / F 18mg) — verify which reference your INFS source uses."@en .
+
+###  Calcium
+:Calcium rdf:type owl:NamedIndividual , :Micronutrient ;
+         :hasRDA_male_daily "1000.0"^^xsd:float ;
+         :hasRDA_female_daily "1000.0"^^xsd:float ;
+         :causesSymptom :BoneJointPain ;
+         :treatedBy :Dudh , :Doi , :LalShak .
+
+###  Zinc
+:Zinc rdf:type owl:NamedIndividual , :Micronutrient ;
+      :hasRDA_male_daily "11.0"^^xsd:float ;
+      :hasRDA_female_daily "8.0"^^xsd:float ;
+      :causesSymptom :HairLoss , :FrequentIllness ;
+      :treatedBy :GorurMangsho , :Chola ;
+      rdfs:comment "WHO/US value shown; ICMR South Asian reference (low-bioavailability diet) is notably higher (~M 17mg / F 13mg) — verify against your chosen RDA table."@en .
+
+###  VitaminA
+:VitaminA rdf:type owl:NamedIndividual , :Micronutrient ;
+          :hasRDA_male_daily "900.0"^^xsd:float ;
+          :hasRDA_female_daily "700.0"^^xsd:float ;
+          :causesSymptom :NightBlindness , :DryFlakySkin ;
+          :treatedBy :LalShak , :Gajar , :MishtiKumra .
+
+###  VitaminC
+:VitaminC rdf:type owl:NamedIndividual , :Micronutrient ;
+          :hasRDA_male_daily "90.0"^^xsd:float ;
+          :hasRDA_female_daily "75.0"^^xsd:float ;
+          :causesSymptom :GumBleeding , :FrequentIllness ;
+          :treatedBy :Amloki , :Kamalalebu , :Pepe .
+
+###  VitaminD
+:VitaminD rdf:type owl:NamedIndividual , :Micronutrient ;
+          :hasRDA_male_daily "15.0"^^xsd:float ;
+          :hasRDA_female_daily "15.0"^^xsd:float ;
+          :causesSymptom :BoneJointPain , :DryFlakySkin ;
+          :treatedBy :Ilish , :Dim , :Dudh .
+
+
+#################################################################
+#    Individuals — Symptoms
+#################################################################
+
+:Fatigue           rdf:type owl:NamedIndividual , :Symptom .
+:HairLoss          rdf:type owl:NamedIndividual , :Symptom .
+:GumBleeding       rdf:type owl:NamedIndividual , :Symptom .
+:NightBlindness    rdf:type owl:NamedIndividual , :Symptom .
+:DryFlakySkin      rdf:type owl:NamedIndividual , :Symptom .
+:BoneJointPain     rdf:type owl:NamedIndividual , :Symptom .
+:FrequentIllness   rdf:type owl:NamedIndividual , :Symptom .
+:PoorConcentration rdf:type owl:NamedIndividual , :Symptom .
+
+
+#################################################################
+#    Individuals — Foods (values per 100g edible portion, close-range estimates)
+#################################################################
+
+###  Grain group
+:Bhat rdf:type owl:NamedIndividual , :Grain ;
+      rdfs:label "Rice (cooked)"@en ;
+      :hasProteinContent_g_per_100g "2.7"^^xsd:float ;
+      :hasCarbohydrate_g_per_100g "28.0"^^xsd:float ;
+      :hasFatContent_g_per_100g "0.3"^^xsd:float ;
+      :hasIronContent_mg_per_100g "0.2"^^xsd:float ;
+      :hasServingSize_g "150.0"^^xsd:float ;
+      :hasNutrient :Carbohydrate , :Protein .
+
+:Atta rdf:type owl:NamedIndividual , :Grain ;
+      rdfs:label "Wheat flour"@en ;
+      :hasProteinContent_g_per_100g "12.0"^^xsd:float ;
+      :hasCarbohydrate_g_per_100g "72.0"^^xsd:float ;
+      :hasFatContent_g_per_100g "1.7"^^xsd:float ;
+      :hasIronContent_mg_per_100g "3.5"^^xsd:float ;
+      :hasServingSize_g "70.0"^^xsd:float ;
+      :hasNutrient :Carbohydrate , :Protein , :Iron .
+
+
+
+
+###  Legume group
+:MasoorDal rdf:type owl:NamedIndividual , :Legume ;
+           rdfs:label "Red lentil (cooked)"@en ;
+           :hasProteinContent_g_per_100g "9.0"^^xsd:float ;
+           :hasCarbohydrate_g_per_100g "20.0"^^xsd:float ;
+           :hasIronContent_mg_per_100g "3.3"^^xsd:float ;
+           :hasServingSize_g "100.0"^^xsd:float ;
+           :hasNutrient :Protein , :Iron , :Carbohydrate .
+
+:Chola rdf:type owl:NamedIndividual , :Legume ;
+       rdfs:label "Chickpea (cooked)"@en ;
+       :hasProteinContent_g_per_100g "8.9"^^xsd:float ;
+       :hasCarbohydrate_g_per_100g "27.0"^^xsd:float ;
+       :hasIronContent_mg_per_100g "2.9"^^xsd:float ;
+       :hasZincContent_mg_per_100g "1.5"^^xsd:float ;
+       :hasServingSize_g "100.0"^^xsd:float ;
+       :hasNutrient :Protein , :Iron , :Zinc .
+
+
+###  Green leafy vegetables
+:LalShak rdf:type owl:NamedIndividual , :GreenLeafy ;
+         rdfs:label "Red amaranth leaves"@en ;
+         :hasIronContent_mg_per_100g "3.9"^^xsd:float ;
+         :hasCalcium_mg_per_100g "350.0"^^xsd:float ;
+         :hasVitaminA_mcg_per_100g "2900.0"^^xsd:float ;
+         :hasServingSize_g "100.0"^^xsd:float ;
+         :hasNutrient :Iron , :Calcium , :VitaminA .
+
+:PalongShak rdf:type owl:NamedIndividual , :GreenLeafy ;
+            rdfs:label "Spinach"@en ;
+            :hasIronContent_mg_per_100g "2.7"^^xsd:float ;
+            :hasCalcium_mg_per_100g "99.0"^^xsd:float ;
+            :hasVitaminA_mcg_per_100g "469.0"^^xsd:float ;
+            :hasVitaminC_mg_per_100g "28.0"^^xsd:float ;
+            :hasServingSize_g "100.0"^^xsd:float ;
+            :hasNutrient :Iron , :Calcium , :VitaminA , :VitaminC .
+
+
+###  Other vegetables
+:Gajar rdf:type owl:NamedIndividual , :OtherVegetable ;
+       rdfs:label "Carrot"@en ;
+       :hasVitaminA_mcg_per_100g "835.0"^^xsd:float ;
+       :hasVitaminC_mg_per_100g "5.9"^^xsd:float ;
+       :hasCarbohydrate_g_per_100g "9.6"^^xsd:float ;
+       :hasServingSize_g "80.0"^^xsd:float ;
+       :hasNutrient :VitaminA , :VitaminC , :Carbohydrate .
+
+:MishtiKumra rdf:type owl:NamedIndividual , :OtherVegetable ;
+             rdfs:label "Pumpkin"@en ;
+             :hasVitaminA_mcg_per_100g "426.0"^^xsd:float ;
+             :hasCarbohydrate_g_per_100g "6.5"^^xsd:float ;
+             :hasServingSize_g "100.0"^^xsd:float ;
+             :hasNutrient :VitaminA , :Carbohydrate .
+
+:Begun rdf:type owl:NamedIndividual , :OtherVegetable ;
+       rdfs:label "Eggplant"@en ;
+       :hasCarbohydrate_g_per_100g "5.9"^^xsd:float ;
+       :hasVitaminC_mg_per_100g "2.2"^^xsd:float ;
+       :hasServingSize_g "100.0"^^xsd:float ;
+       :hasNutrient :Carbohydrate , :VitaminC .
+
+:Alu rdf:type owl:NamedIndividual , :OtherVegetable ;
+     rdfs:label "Potato"@en ;
+     rdfs:comment "Botanically a tuber, moved out of Grain to OtherVegetable per DDS starchy-staple/vegetable convention."@en ;
+     :hasProteinContent_g_per_100g "2.0"^^xsd:float ;
+     :hasCarbohydrate_g_per_100g "17.0"^^xsd:float ;
+     :hasVitaminC_mg_per_100g "19.0"^^xsd:float ;
+     :hasServingSize_g "100.0"^^xsd:float ;
+     :hasNutrient :Carbohydrate , :VitaminC .
+
+
+###  Citrus fruit
+:Kamalalebu rdf:type owl:NamedIndividual , :CitrusFruit ;
+            rdfs:label "Orange"@en ;
+            :hasVitaminC_mg_per_100g "53.0"^^xsd:float ;
+            :hasCarbohydrate_g_per_100g "12.0"^^xsd:float ;
+            :hasServingSize_g "130.0"^^xsd:float ;
+            :hasNutrient :VitaminC , :Carbohydrate ;
+            :enhancesAbsorption :Iron .
+
+
+###  Other fruit
+:Aam rdf:type owl:NamedIndividual , :OtherFruit ;
+     rdfs:label "Mango"@en ;
+     :hasVitaminA_mcg_per_100g "54.0"^^xsd:float ;
+     :hasVitaminC_mg_per_100g "36.0"^^xsd:float ;
+     :hasCarbohydrate_g_per_100g "15.0"^^xsd:float ;
+     :hasServingSize_g "150.0"^^xsd:float ;
+     :hasNutrient :VitaminA , :VitaminC , :Carbohydrate .
+
+:Pepe rdf:type owl:NamedIndividual , :OtherFruit ;
+      rdfs:label "Papaya"@en ;
+      :hasVitaminA_mcg_per_100g "47.0"^^xsd:float ;
+      :hasVitaminC_mg_per_100g "61.0"^^xsd:float ;
+      :hasServingSize_g "140.0"^^xsd:float ;
+      :hasNutrient :VitaminA , :VitaminC ;
+      :enhancesAbsorption :Iron .
+
+:Amloki rdf:type owl:NamedIndividual , :OtherFruit ;
+        rdfs:label "Indian gooseberry (Amla)"@en ;
+        rdfs:comment "Botanically not a citrus fruit, but included here for consistency with earlier draft; extremely high Vitamin C content."@en ;
+        :hasVitaminC_mg_per_100g "445.0"^^xsd:float ;
+        :hasIronContent_mg_per_100g "0.3"^^xsd:float ;
+        :hasServingSize_g "30.0"^^xsd:float ;
+        :hasNutrient :VitaminC , :Iron ;
+        :enhancesAbsorption :Iron .
+
+
+###  Meat
+:MurgirMangsho rdf:type owl:NamedIndividual , :Meat ;
+               rdfs:label "Chicken (breast)"@en ;
+               :hasProteinContent_g_per_100g "27.0"^^xsd:float ;
+               :hasFatContent_g_per_100g "3.6"^^xsd:float ;
+               :hasIronContent_mg_per_100g "1.0"^^xsd:float ;
+               :hasZincContent_mg_per_100g "1.0"^^xsd:float ;
+               :hasServingSize_g "100.0"^^xsd:float ;
+               :hasNutrient :Protein , :Iron , :Zinc .
+
+:GorurMangsho rdf:type owl:NamedIndividual , :Meat ;
+              rdfs:label "Beef"@en ;
+              :hasProteinContent_g_per_100g "26.0"^^xsd:float ;
+              :hasFatContent_g_per_100g "15.0"^^xsd:float ;
+              :hasIronContent_mg_per_100g "2.6"^^xsd:float ;
+              :hasZincContent_mg_per_100g "4.8"^^xsd:float ;
+              :hasServingSize_g "100.0"^^xsd:float ;
+              :hasNutrient :Protein , :Iron , :Zinc .
+
+
+###  Fish
+:Ilish rdf:type owl:NamedIndividual , :Fish ;
+       rdfs:label "Hilsa fish"@en ;
+       :hasProteinContent_g_per_100g "18.0"^^xsd:float ;
+       :hasFatContent_g_per_100g "19.4"^^xsd:float ;
+       :hasIronContent_mg_per_100g "2.2"^^xsd:float ;
+       :hasVitaminD_mcg_per_100g "8.0"^^xsd:float ;
+       :hasServingSize_g "100.0"^^xsd:float ;
+       :hasNutrient :Protein , :Iron , :VitaminD ;
+       rdfs:comment "Vitamin D value is a rough oily-fish estimate — confirm against INFS; oily fish Vitamin D content varies widely by source and season."@en .
+
+:Rui rdf:type owl:NamedIndividual , :Fish ;
+     rdfs:label "Rohu fish"@en ;
+     :hasProteinContent_g_per_100g "16.9"^^xsd:float ;
+     :hasFatContent_g_per_100g "1.5"^^xsd:float ;
+     :hasIronContent_mg_per_100g "0.9"^^xsd:float ;
+     :hasServingSize_g "100.0"^^xsd:float ;
+     :hasNutrient :Protein , :Iron .
+
+
+###  Egg
+:Dim rdf:type owl:NamedIndividual , :Egg ;
+     rdfs:label "Egg"@en ;
+     :hasProteinContent_g_per_100g "13.0"^^xsd:float ;
+     :hasFatContent_g_per_100g "11.0"^^xsd:float ;
+     :hasIronContent_mg_per_100g "1.2"^^xsd:float ;
+     :hasVitaminD_mcg_per_100g "1.1"^^xsd:float ;
+     :hasServingSize_g "50.0"^^xsd:float ;
+     :hasNutrient :Protein , :Iron , :VitaminD .
+
+
+###  Dairy
+:Dudh rdf:type owl:NamedIndividual , :Dairy ;
+      rdfs:label "Milk"@en ;
+      :hasProteinContent_g_per_100g "3.4"^^xsd:float ;
+      :hasCarbohydrate_g_per_100g "4.8"^^xsd:float ;
+      :hasFatContent_g_per_100g "3.6"^^xsd:float ;
+      :hasCalcium_mg_per_100g "120.0"^^xsd:float ;
+      :hasVitaminD_mcg_per_100g "0.2"^^xsd:float ;
+      :hasServingSize_g "240.0"^^xsd:float ;
+      :hasNutrient :Protein , :Calcium , :VitaminD .
+
+:Doi rdf:type owl:NamedIndividual , :Dairy ;
+     rdfs:label "Yogurt"@en ;
+     :hasProteinContent_g_per_100g "3.5"^^xsd:float ;
+     :hasCalcium_mg_per_100g "121.0"^^xsd:float ;
+     :hasServingSize_g "150.0"^^xsd:float ;
+     :hasNutrient :Protein , :Calcium .
+
+
+###  Oil
+:SoyabeanTel rdf:type owl:NamedIndividual , :Oil ;
+             rdfs:label "Soybean oil"@en ;
+             :hasFatContent_g_per_100g "100.0"^^xsd:float ;
+             :hasServingSize_g "10.0"^^xsd:float ;
+             :hasNutrient :Fat .
+
+
+###  Junk food (lifestyle tracking, excluded from DDS scoring)
+:AluChips rdf:type owl:NamedIndividual , :JunkFood ;
+          rdfs:label "Potato chips"@en ;
+          :hasFatContent_g_per_100g "35.0"^^xsd:float ;
+          :hasCarbohydrate_g_per_100g "53.0"^^xsd:float ;
+          :hasProteinContent_g_per_100g "6.0"^^xsd:float ;
+          :hasServingSize_g "30.0"^^xsd:float ;
+          :hasNutrient :Fat , :Carbohydrate .
+
+:SoftDrink rdf:type owl:NamedIndividual , :JunkFood ;
+           rdfs:label "Carbonated soft drink"@en ;
+           :hasCarbohydrate_g_per_100g "10.6"^^xsd:float ;
+           :hasServingSize_g "250.0"^^xsd:float ;
+           :hasNutrient :Carbohydrate .
+
+
+###  Beverage (lifestyle tracking, excluded from DDS scoring)
+:Cha rdf:type owl:NamedIndividual , :Beverage ;
+     rdfs:label "Tea"@en ;
+     :hasServingSize_g "200.0"^^xsd:float .
+
+:DudhCha rdf:type owl:NamedIndividual , :Beverage ;
+         rdfs:label "Milk tea"@en ;
+         rdfs:comment "Rough estimate assuming ~40ml milk per 200ml cup; refine once you know the actual milk quantity used in the recipe you're surveying."@en ;
+         :hasProteinContent_g_per_100g "0.7"^^xsd:float ;
+         :hasCalcium_mg_per_100g "24.0"^^xsd:float ;
+         :hasCarbohydrate_g_per_100g "5.0"^^xsd:float ;
+         :hasVitaminD_mcg_per_100g "0.04"^^xsd:float ;
+         :hasServingSize_g "200.0"^^xsd:float ;
+         :hasNutrient :Protein , :Calcium , :Carbohydrate , :VitaminD .
+
+:Coffee rdf:type owl:NamedIndividual , :Beverage ;
+        rdfs:label "Coffee"@en ;
+        :hasServingSize_g "200.0"^^xsd:float .
+
+
+###  Generated for Trino's thesis project — "An Ontology-Driven Explainable AI Framework for Nutritional Deficiency Detection and Personalized Local Food Recommendation for Bangladeshi University Students"

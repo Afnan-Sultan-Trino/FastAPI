@@ -1,0 +1,130 @@
+body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 14px;
+            color: #334155;
+            font-size: 14px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 14px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: 0.2s;
+            background: white;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        .food-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .food-row span {
+            width: 90px;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .food-row select {
+            margin-top: 0;
+        }
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #22c55e;
+            font-size: 14px;
+            display: none;
+            word-break: break-word;
+        }
+        .food-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 12px;
+        }
+        .food-item {
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 10px;
+            width: 120px;
+            background: white;
+        }
+        .food-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #f1f5f9;
+        }
+        .food-item span {
+            display: block;
+            margin-top: 6px;
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 14px;
+        }
+        .deficiency-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+        .deficient { color: #dc2626; font-weight: 600; }
+        .adequate { color: #16a34a; font-weight: 600; }
+        .error {
+            background: #fef2f2 !important;
+            border-left-color: #ef4444 !important;
+        }

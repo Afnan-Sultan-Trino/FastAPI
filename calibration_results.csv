@@ -1,0 +1,6 @@
+Nutrient,Rule_risk_mean,ML_risk_mean,Pearson_r,Pearson_p,Spearman_rho,Spearman_p
+VitaminA,46.5,59.3,0.862,0.0,0.861,0.0
+Zinc,55.3,89.1,0.619,0.0,0.532,0.0
+VitaminC,42.3,63.6,0.871,0.0,0.846,0.0
+Carbohydrate,25.4,51.6,0.837,0.0,0.842,0.0
+Protein,23.0,51.7,0.819,0.0,0.816,0.0

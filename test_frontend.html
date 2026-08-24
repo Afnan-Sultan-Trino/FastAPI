@@ -3,44 +3,584 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🥗 Nutrition API - Frontend Test</title>
+
+    <title>পুষ্টি ডেটা পাঠান — Nutrition API</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-<div class="card">
-    <h2>🥗 পুষ্টি ডেটা পাঠান</h2>
+    <div class="page-background">
 
-    <label>আপনার নাম</label>
-    <input type="text" id="name" placeholder="ex: রাফসান">
+        <main class="nutrition-card">
 
-    <label>বয়স (বছর)</label>
-    <input type="number" id="age" placeholder="ex: ২২">
+            <!-- ================= HEADER ================= -->
+            <header class="app-header">
 
-    <label>লিঙ্গ</label>
-    <select id="gender">
-        <option value="male">পুরুষ</option>
-        <option value="female">নারী</option>
-    </select>
+                <div class="header-left">
 
-    <label>ওজন (কেজি)</label>
-    <input type="number" step="0.1" id="weight" placeholder="ex: ৬৫.৫">
+                    <div class="header-icon">
+                        🍽️
+                    </div>
 
-    <label>উচ্চতা (সেমি)</label>
-    <input type="number" step="0.1" id="height" placeholder="ex: ১৭০">
+                    <div class="header-content">
+                        <span class="eyebrow">Nutrition Analysis</span>
+                        <h1>পুষ্টি ডেটা পাঠান</h1>
+                        <p>
+                            আপনার খাদ্যাভ্যাস, জীবনযাপন ও শারীরিক উপসর্গের তথ্য প্রদান করুন।
+                        </p>
+                    </div>
 
-    <label>সপ্তাহে কতদিন এই খাবারগুলো খান?</label>
-    <div id="food-frequency-list"></div>
+                </div>
 
-    <button onclick="sendData()">🔍 Analyze</button>
+                <!-- ================= PROGRESS RING ("থালা") ================= -->
+                <div class="thali-ring" id="progress-bar" style="--progress:0">
+                    <div class="thali-ring-inner">
+                        <span id="progress-text">0%</span>
+                        <span class="thali-ring-label">সম্পন্ন</span>
+                    </div>
+                </div>
 
-    <div id="result"></div>
-</div>
+            </header>
 
-<script src="script.js"></script>
+
+            <!-- ================= PERSONAL INFORMATION (কোর্স ০১ · শুরু) ================= -->
+            <section class="form-section course-1">
+
+                <div class="section-heading">
+
+                    <div class="section-number">০১</div>
+
+                    <div>
+                        <span class="course-tag">কোর্স ০১ · শুরু</span>
+                        <h2>ব্যক্তিগত তথ্য</h2>
+                        <p>আপনার মৌলিক তথ্য প্রদান করুন</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="input-group full-width">
+
+                        <label for="name">
+                            আপনার নাম
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="ex: রাফসান"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="age">
+                            বয়স (বছর)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="age"
+                            placeholder="ex: ২২"
+                            min="1"
+                            max="120"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="gender">
+                            লিঙ্গ
+                        </label>
+
+                        <select id="gender">
+
+                            <option value="male">
+                                পুরুষ
+                            </option>
+
+                            <option value="female">
+                                নারী
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="religion">
+                            ধর্ম
+                        </label>
+
+                        <select id="religion">
+
+                            <option value="Islam">
+                                ইসলাম
+                            </option>
+
+                            <option value="Hinduism">
+                                হিন্দু
+                            </option>
+
+                            <option value="Buddhism">
+                                বৌদ্ধ
+                            </option>
+
+                            <option value="Christianity">
+                                খ্রিস্টান
+                            </option>
+
+                            <option value="Other">
+                                অন্যান্য
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="weight">
+                            ওজন (কেজি)
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            id="weight"
+                            placeholder="ex: ৬৫.৫"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="height">
+                            উচ্চতা (সেমি)
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            id="height"
+                            placeholder="ex: ১৭০"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= LIFESTYLE (কোর্স ০২ · ছন্দ) ================= -->
+            <section class="form-section course-2">
+
+                <div class="section-heading">
+
+                    <div class="section-number">০২</div>
+
+                    <div>
+                        <span class="course-tag">কোর্স ০২ · দৈনন্দিন ছন্দ</span>
+                        <h2>জীবনযাপন</h2>
+                        <p>আপনার দৈনন্দিন জীবনযাপনের তথ্য দিন</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="input-group full-width">
+
+                        <label for="living-arrangement">
+                            থাকার ব্যবস্থা
+                        </label>
+
+                        <select id="living-arrangement">
+
+                            <option value="Mess/Hostel">
+                                মেস/হোস্টেল
+                            </option>
+
+                            <option value="পরিবারের সাথে (বাসায়)">
+                                পরিবারের সাথে (বাসায়)
+                            </option>
+
+                            <option value="বন্ধুদের সাথে শেয়ার্ড বাসায়">
+                                বন্ধুদের সাথে শেয়ার্ড বাসায়
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="sleep-category">
+                            দৈনিক গড়ে কত ঘণ্টা ঘুমান?
+                        </label>
+
+                        <select id="sleep-category">
+
+                            <option value="৪ ঘণ্টার কম">
+                                ৪ ঘণ্টার কম
+                            </option>
+
+                            <option value="৪–৬ ঘণ্টা">
+                                ৪–৬ ঘণ্টা
+                            </option>
+
+                            <option value="৬–৮ ঘণ্টা" selected>
+                                ৬–৮ ঘণ্টা
+                            </option>
+
+                            <option value="৮ ঘণ্টার বেশি">
+                                ৮ ঘণ্টার বেশি
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="screen-before-sleep">
+                            ঘুমানোর আগে মোবাইল/স্ক্রিন কতক্ষণ ব্যবহার করেন?
+                        </label>
+
+                        <select id="screen-before-sleep">
+
+                            <option value="৩০ মিনিটের কম">
+                                ৩০ মিনিটের কম
+                            </option>
+
+                            <option value="৩০ মিনিট–১ ঘণ্টা">
+                                ৩০ মিনিট–১ ঘণ্টা
+                            </option>
+
+                            <option value="১–২ ঘণ্টা">
+                                ১–২ ঘণ্টা
+                            </option>
+
+                            <option value="২ ঘণ্টার বেশি">
+                                ২ ঘণ্টার বেশি
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group full-width">
+
+                        <label for="sun-exposure">
+                            দিনে কতক্ষণ রোদে থাকেন (সূর্যালোক)?
+                        </label>
+
+                        <select id="sun-exposure">
+
+                            <option value="৩০ মিনিটের কম">
+                                ৩০ মিনিটের কম
+                            </option>
+
+                            <option value="৩০ মিনিট–১ ঘণ্টা">
+                                ৩০ মিনিট–১ ঘণ্টা
+                            </option>
+
+                            <option value="১–২ ঘণ্টা">
+                                ১–২ ঘণ্টা
+                            </option>
+
+                            <option value="২ ঘণ্টার বেশি">
+                                ২ ঘণ্টার বেশি
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= FOOD FREQUENCY (কোর্স ০৩ · মূল পদ) ================= -->
+            <section class="form-section course-3">
+
+                <div class="section-heading">
+
+                    <div class="section-number">০৩</div>
+
+                    <div>
+
+                        <span class="course-tag">কোর্স ০৩ · মূল পদ</span>
+                        <h2>খাদ্যাভ্যাস</h2>
+
+                        <p>
+                            সপ্তাহে কতদিন এবং কী পরিমাণে এই খাবারগুলো খান?
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <div class="info-banner">
+
+                    <span class="info-icon">🍛</span>
+
+                    <p>
+                        প্রতিটি খাবারের জন্য আপনার খাওয়ার
+                        <strong>ফ্রিকোয়েন্সি এবং পরিমাণ</strong>
+                        নির্বাচন করুন।
+                    </p>
+
+                </div>
+
+
+                <!-- KEEP THIS ID FOR EXISTING JS -->
+                <div
+                    id="food-frequency-list"
+                    class="food-frequency-container"
+                ></div>
+
+            </section>
+
+
+            <!-- ================= SYMPTOMS (কোর্স ০৪ · পর্যবেক্ষণ) ================= -->
+            <section class="form-section course-4">
+
+                <div class="section-heading">
+
+                    <div class="section-number">০৪</div>
+
+                    <div>
+
+                        <span class="course-tag">কোর্স ০৪ · পর্যবেক্ষণ</span>
+                        <h2>শারীরিক উপসর্গ</h2>
+
+                        <p>
+                            আপনার ক্ষেত্রে প্রযোজ্য উপসর্গগুলো নির্বাচন করুন
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <div class="symptom-banner">
+
+                    <span class="symptom-icon">🩺</span>
+
+                    <p>
+                        আপনার বর্তমানে থাকা উপসর্গগুলো নির্বাচন করুন।
+                        একাধিক নির্বাচন করা যেতে পারে।
+                    </p>
+
+                </div>
+
+
+                <!-- KEEP THIS ID FOR EXISTING JS -->
+                <div
+                    id="symptom-list"
+                    class="symptom-container"
+                ></div>
+
+            </section>
+
+
+            <!-- ================= ANALYZE ================= -->
+            <div class="analysis-area">
+
+                <button
+                    onclick="sendData()"
+                    id="analyze-button"
+                    class="analyze-button"
+                >
+
+                    <span class="button-icon">
+                        🔍
+                    </span>
+
+                    <span>
+                        বিশ্লেষণ করুন
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </button>
+
+                <p class="analysis-note">
+                    আপনার তথ্য বিশ্লেষণ করে পুষ্টির ঝুঁকি ও
+                    ব্যক্তিগতকৃত সুপারিশ প্রদান করা হবে।
+                </p>
+
+            </div>
+
+
+            <!-- ================= RESULT ================= -->
+            <div
+                id="result"
+                class="result-container"
+            ></div>
+
+
+            <!-- ================= FOOTER ================= -->
+            <footer class="app-footer">
+
+                <span>
+                    🍽️ Nutrition Decision Support System
+                </span>
+
+                <span>
+                    Preliminary Analysis
+                </span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+
+    <!-- ================= UI INTERACTION ================= -->
+    <script>
+
+        const formInputs = document.querySelectorAll(
+            "input, select"
+        );
+
+        const progressRing =
+            document.getElementById("progress-bar");
+
+        const progressText =
+            document.getElementById("progress-text");
+
+
+        function updateProgress() {
+
+            let completed = 0;
+            let total = formInputs.length;
+
+            formInputs.forEach(input => {
+
+                if (input.value && input.value.trim() !== "") {
+                    completed++;
+                }
+
+            });
+
+            const percentage =
+                total > 0
+                    ? Math.round((completed / total) * 100)
+                    : 0;
+
+            progressRing.style.setProperty("--progress", percentage);
+            progressText.textContent =
+                percentage + "%";
+
+        }
+
+
+        formInputs.forEach(input => {
+
+            input.addEventListener(
+                "input",
+                updateProgress
+            );
+
+            input.addEventListener(
+                "change",
+                updateProgress
+            );
+
+        });
+
+
+        /* Analyze button interaction */
+
+        const analyzeButton =
+            document.getElementById("analyze-button");
+
+
+        analyzeButton.addEventListener(
+            "click",
+            function () {
+
+                this.classList.add("loading");
+
+            }
+        );
+
+
+        /* Smooth scroll to result */
+
+        const result =
+            document.getElementById("result");
+
+
+        const observer =
+            new MutationObserver(() => {
+
+                if (
+                    result.style.display !== "none" &&
+                    result.innerHTML.trim() !== ""
+                ) {
+
+                    setTimeout(() => {
+
+                        result.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }, 150);
+
+                }
+
+            });
+
+
+        observer.observe(
+            result,
+            {
+                attributes: true,
+                childList: true,
+                subtree: true
+            }
+        );
+
+
+        updateProgress();
+
+    </script>
 
 </body>
 </html>

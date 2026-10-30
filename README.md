@@ -14,6 +14,11 @@ The framework bridges the gap between clinical nutrition and practical, everyday
 4. **Explainable AI (XAI):** Utilizes SHAP (SHapley Additive exPlanations) to provide transparency into which symptoms and lifestyle factors are driving the ML predictions.
 5. **Personalized Recommendation Engine:** Generates context-aware local food suggestions, complete with portion sizes, filtered by religion and budget constraints.
 
+### 🧬 Ontology Visualization
+Below is the visualization of the custom Bangladeshi Food Ontology mapping foods, nutrients, and symptoms:
+
+![Nutrition Ontology](Nutrition_onto.png)
+
 ## ⚙️ Pipeline Workflow
 1. **Data Collection:** Google Forms survey capturing demographics, lifestyle, FFQ (27 items), portion sizes, and 11 physical symptoms.
 2. **Rule-Based Assessment:** Nutrient intake is calculated and compared against RDAs to derive a continuous deficiency risk score.
@@ -52,6 +57,17 @@ The Random Forest models achieved strong discriminative ability across all five 
 *   **Protein:** Murgir Mangsho (Chicken), Kamalalebu
 *   **Carbohydrate:** Atta, Bhat
 *   **Zinc:** Gorur Mangsho (Beef), Murgir Mangsho
+
+### 📊 SHAP Summary Plots
+Here are the SHAP visualizations showing the feature importance and impact for the modeled nutrients:
+
+| Protein | Vitamin A |
+| :---: | :---: |
+| ![SHAP Protein](shap_Protein.png) | ![SHAP Vitamin A](shap_VitaminA.png) |
+
+| Vitamin C | Zinc |
+| :---: | :---: |
+| ![SHAP Vitamin C](shap_VitaminC.png) | ![SHAP Zinc](shap_Zinc.png) |
 
 ## 📈 Validation
 Rule-based and ML risk estimates were compared to assess calibration (since ML labels were derived from the 20% rule-based threshold). 
